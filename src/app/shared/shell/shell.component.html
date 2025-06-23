@@ -1,0 +1,64 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport 
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'">
+        <mat-toolbar>
+            <button mat-icon-button (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Menu</span>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item="mat-list-item" routerLink="/" (click)="drawer.close()">🏠 Home</a>
+            <a mat-list-item="mat-list-item" routerLink="/login" (click)="drawer.close()">🔑 Login</a>
+            <a mat-list-item="mat-list-item" routerLink="/kanban" (click)="drawer.close()">🀄️ Kanban</a>
+            <a mat-list-item="mat-list-item" routerLink="/customers" (click)="drawer.close()">⚡️ SSR Demo</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button 
+                mat-icon-button 
+                (click)="drawer.toggle()"
+                aria-label="Toggle sidenav"
+                *ngIf="isHandset$ | async"
+            >
+                <mat-icon aria-label="Toggle sidenav">menu</mat-icon>
+            </button>
+            <span class="logo" routerLink="/" style="padding-left: 1rem;">📒 Angular Proj</span>
+
+            <span class="fill-space"></span>
+
+            <div *ngIf="!(isHandset$ | async)">
+                <a mat-button routerLink="/">🏠 Home</a>
+                <a mat-button routerLink="/login">🔑 Login</a>
+                <a mat-button routerLink="/kanban">🀄️ Kanban Demo</a>
+                <a mat-button routerLink="/customers">⚡️ SSR Demo</a>
+            </div>
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle sidenav">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <a 
+                    mat-menu-item 
+                    href="https://github.com/jacobbenowitz/angular-proj"
+                    referrerpolicy="no-referrer" 
+                    target="_blank"
+                >
+                    <span>GitHub Repo</span>
+                </a>
+                <a 
+                    mat-menu-item href="https://www.jacobbenowitz.com"  
+                    referrerpolicy="no-referrer" 
+                    target="_blank"
+                >
+                    <span>Jacob's Portfolio</span>
+                </a>
+            </mat-menu>
+        </mat-toolbar>
+
+        <ng-content></ng-content>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
